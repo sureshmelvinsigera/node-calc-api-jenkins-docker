@@ -19,11 +19,7 @@ pipeline {
         }
 
         stage('SonarQubeScanner-5.0.1.3006') {
-            agent {
-                    docker {
-                        image 'node:lts-buster-slim' // Use an image that has Node.js
-                    }
-                }
+            agent any // Specify the agent for this stage
             environment {
                 // Define environment variables for SonarQube credentials
                 SONARQUBE_PROJECT_KEY = ''
