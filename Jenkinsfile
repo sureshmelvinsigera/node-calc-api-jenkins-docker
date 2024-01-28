@@ -31,8 +31,8 @@ pipeline {
                     string(credentialsId: 'sonarqube_project_key', variable: 'SONARQUBE_PROJECT_KEY')
                 ]) {
                     script {
-                        // Use the environment variables in the command
-                        sh "sonar-scanner -Dsonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.host.url=http://3.14.132.177:9000/ -Dsonar.login=$SONARQUBE_TOKEN"
+                        // Use the full path for the sonar-scanner command
+                        sh "/opt/sonar-scanner/bin/sonar-scanner -Dsonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.host.url=http://3.14.132.177:9000/ -Dsonar.login=$SONARQUBE_TOKEN"
                     }
                 }
             }
