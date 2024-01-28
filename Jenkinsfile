@@ -18,18 +18,18 @@ pipeline {
             }
         }
 
-//         stage('SonarQubeScanner-5.0.1.3006') {
-//             agent any // Specify the agent for this stage
-//             steps {
-//                 withCredentials([string(credentialsId: 'sonarqube_token', variable: 'SONAR_TOKEN'),
-//                                  string(credentialsId: 'sonarqube_project_key', variable: 'SONAR_PROJECT_KEY')]) {
-//                     script {
-//                         // Run SonarQube analysis with the token and project key
-//                         sh "sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=http://3.14.132.177:9000/ -Dsonar.login=${SONAR_TOKEN}"
-//                     }
-//                 }
-//             }
-//         }
+        stage('SonarQubeScanner-5.0.1.3006') {
+            agent any // Specify the agent for this stage
+            steps {
+                withCredentials([string(credentialsId: 'sonarqube_token', variable: 'SONAR_TOKEN'),
+                                 string(credentialsId: 'sonarqube_project_key', variable: 'SONAR_PROJECT_KEY')]) {
+                    script {
+                        // Run SonarQube analysis with the token and project key
+                        sh "sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=http://3.14.132.177:9000/ -Dsonar.login=${SONAR_TOKEN}"
+                    }
+                }
+            }
+        }
 
         stage('Build and Push Docker Image') {
             agent any // This stage will run on any available agent
