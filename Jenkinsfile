@@ -20,12 +20,19 @@ pipeline {
 
         stage('SonarQubeScanner-5.0.1.3006') {
             agent any // Specify the agent for this stage
+            environment {
+                // Define environment variables for SonarQube credentials
+                SONARQUBE_PROJECT_KEY = ''
+                SONARQUBE_TOKEN = ''
+            }
             steps {
-                withCredentials([string(credentialsId: 'sonarqube_token', variable: 'SONAR_TOKEN'),
-                                 string(credentialsId: 'sonarqube_project_key', variable: 'SONAR_PROJECT_KEY')]) {
+                withCredentials([
+                    string(credentialsId: 'sonarqube_token', variable: 'SONARQUBE_TOKEN'),
+                    string(credentialsId: 'sonarqube_project_key', variable: 'SONARQUBE_PROJECT_KEY')
+                ]) {
                     script {
-                        // Run SonarQube analysis with the token and project key
-                        sh "sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=http://3.14.132.177:9000/ -Dsonar.login=${SONAR_TOKEN}"
+                        // Use the environment variables in the command
+                        sh "sonar-scanner -Dsonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.host.url=http://3.14.132.177:9000/ -Dsonar.login=$SONARQUBE_TOKEN"
                     }
                 }
             }
