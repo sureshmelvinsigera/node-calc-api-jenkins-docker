@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     // Building the Docker image
-                    sh 'docker build -t my-app-image .'
+                    sh 'docker build -t calc-api-image .'
 
                     // Using credentials from Jenkins store
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USER', passwordVariable: 'DOCKER_HUB_PASS')]) {
@@ -44,10 +44,10 @@ pipeline {
                         sh 'echo $DOCKER_HUB_PASS | docker login -u $DOCKER_HUB_USER --password-stdin'
 
                         // Tagging the image
-                        sh 'docker tag my-app-image $DOCKER_HUB_USER/my-app-image:latest'
+                        sh 'docker tag my-app-image $DOCKER_HUB_USER/calc-api-image:latest'
 
                         // Pushing the image to Docker Hub
-                        sh 'docker push $DOCKER_HUB_USER/my-app-image:latest'
+                        sh 'docker push $DOCKER_HUB_USER/calc-api-image:latest'
                     }
                 }
             }
