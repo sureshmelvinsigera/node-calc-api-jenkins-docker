@@ -39,6 +39,10 @@ pipeline {
         }
 
         stage('Build and Push Docker Image') {
+            when {
+                // Only proceed if the previous stage(s) were successful
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             agent any // This stage will run on any available agent
             steps {
                 script {
@@ -51,7 +55,7 @@ pipeline {
                         sh 'echo $DOCKER_HUB_PASS | docker login -u $DOCKER_HUB_USER --password-stdin'
 
                         // Tagging the image
-                        sh 'docker tag my-app-image $DOCKER_HUB_USER/calc-api-image:latest'
+                        sh 'docker tag calc-api-image $DOCKER_HUB_USER/calc-api-image:latest'
 
                         // Pushing the image to Docker Hub
                         sh 'docker push $DOCKER_HUB_USER/calc-api-image:latest'
