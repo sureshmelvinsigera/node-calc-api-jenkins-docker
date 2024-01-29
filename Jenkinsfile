@@ -2,6 +2,15 @@ pipeline {
     agent none // No global agent is defined
 
     stages {
+        stage('Check Node.js') {
+            agent any // Specify the agent for this stage
+            steps {
+                script {
+                    sh 'node -v' // This command checks the Node.js version
+                }
+            }
+        }
+
         stage('Install and Test') {
             agent {
                 docker {
