@@ -41,7 +41,7 @@ pipeline {
                 ]) {
                     script {
                         // Use the full path for the sonar-scanner command
-                        sh "/opt/sonar-scanner/bin/sonar-scanner -Dsonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.host.url=http://3.14.132.177:9000/ -Dsonar.login=$SONARQUBE_TOKEN"
+                        sh "/opt/sonar-scanner/bin/sonar-scanner -Dsonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.host.url=http://3.129.66.56:9000/ -Dsonar.login=$SONARQUBE_TOKEN"
                     }
                 }
             }
